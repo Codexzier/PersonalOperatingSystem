@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Personal OS</title>
+  <meta name="description" content="Personal Operating System – eine Web-Oberfläche im Cyberpunk-Stil mit Taschenrechner, Texteditor und Wetter-App.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="os">
+    <!-- ============ SYSTEM BAR (links) ============ -->
+    <aside class="sysbar" aria-label="System Bar">
+      <div class="sysbar-top">
+        <button class="start-btn" id="startBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="startMenu">
+          <span class="start-glyph" aria-hidden="true"></span>
+          <span>START</span>
+        </button>
+        <div class="sys-readout">
+          <div><span class="tag">CH-1</span> <span id="sysVolt">3.14V</span></div>
+          <div class="clock" id="clock">--:--</div>
+          <div class="date" id="date">--.--.----</div>
+        </div>
+      </div>
+
+      <div class="sysbar-divider" aria-hidden="true"><span></span><span></span><span class="wide"></span></div>
+
+      <section class="tasks" aria-label="Geöffnete Programme">
+        <h2 class="tasks-title">TASKS <span id="taskCount">0</span></h2>
+        <ul class="task-list" id="taskList"></ul>
+        <p class="task-empty" id="taskEmpty">Keine aktiven Prozesse</p>
+      </section>
+
+      <div class="binary" id="binary" aria-hidden="true"></div>
+
+      <div class="dots" aria-hidden="true">
+        <span></span><span class="on"></span><span></span>
+        <span class="on"></span><span></span><span class="on"></span>
+        <span class="on"></span><span class="on"></span><span class="on"></span>
+      </div>
+    </aside>
+
+    <!-- ============ HAUPTBEREICH ============ -->
+    <main class="stage">
+      <header class="stage-header">
+        <h1>PERSONAL: OS</h1>
+        <div class="log-control" aria-hidden="true">
+          <div>LOG CONTROL</div>
+          <div>PING <span id="ping">42MS</span> <span>013</span></div>
+          <div>DEL FILES <span>316</span></div>
+          <div>UPTIME <span id="uptime">00:00</span></div>
+        </div>
+      </header>
+
+      <div class="desktop" id="desktop">
+        <div class="desktop-meta" aria-hidden="true">GLOBAL SYSTEMS<br><span id="serial">6A7E592</span></div>
+
+        <!-- Start-Menü -->
+        <nav class="start-menu" id="startMenu" role="menu" aria-label="Programme" hidden>
+          <div class="start-menu-head">// PROGRAMME</div>
+          <ul>
+            <li role="none"><button role="menuitem" data-app="calculator"><span class="mi-icon" aria-hidden="true">±</span>Taschenrechner</button></li>
+            <li role="none"><button role="menuitem" data-app="editor"><span class="mi-icon" aria-hidden="true">¶</span>Texteditor</button></li>
+            <li role="none"><button role="menuitem" data-app="weather"><span class="mi-icon" aria-hidden="true">☼</span>Wetter</button></li>
+          </ul>
+        </nav>
+
+        <!-- Desktop-Icons -->
+        <div class="desk-icons">
+          <button class="desk-icon" data-app="calculator"><span class="di-glyph">±</span><span>CALC.EXE</span></button>
+          <button class="desk-icon" data-app="editor"><span class="di-glyph">¶</span><span>EDIT.EXE</span></button>
+          <button class="desk-icon" data-app="weather"><span class="di-glyph">☼</span><span>WTHR.EXE</span></button>
+        </div>
+
+        <div class="windows" id="windows"></div>
+
+        <div class="desktop-label" aria-hidden="true">SELECT YOUR PROGRAM</div>
+        <div class="signal" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="codestrip" aria-hidden="true">
+        <pre>void NewSystem( Linux ){
+  SetConsoleSystem(
+    GetStdHandle(STD_OUTPUT_HANDLE),
+    FOREGROUND_Firewall |
+    FOREGROUND_Network );
+}</pre>
+        <pre id="hexstrip"></pre>
+        <pre>typedef struct Linux{
+  int GNU Linux;
+  char SystemFile[42];
+  struct Label *Cryptography;
+} Ethical Hacker;</pre>
+      </div>
+    </main>
+  </div>
+
+  <footer class="hints" aria-label="Tastenkürzel">
+    <span><b>⇅</b>:select</span>
+    <span><b>enter</b>:open</span>
+    <span><b>alt+s</b>:start</span>
+    <span><b>esc</b>:close menu</span>
+  </footer>
+
+  <!-- ============ TEMPLATES ============ -->
+  <template id="tpl-calculator">
+    <div class="calc">
+      <div class="calc-display">
+        <div class="calc-expr" data-ref="expr">&nbsp;</div>
+        <output class="calc-result" data-ref="result">0</output>
+      </div>
+      <div class="calc-keys">
+        <button data-k="C" class="k-fn">C</button>
+        <button data-k="(" class="k-fn">(</button>
+        <button data-k=")" class="k-fn">)</button>
+        <button data-k="/" class="k-op">÷</button>
+        <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+        <button data-k="*" class="k-op">×</button>
+        <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+        <button data-k="-" class="k-op">−</button>
+        <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+        <button data-k="+" class="k-op">+</button>
+        <button data-k="⌫" class="k-fn">⌫</button>
+        <button data-k="0">0</button>
+        <button data-k=".">,</button>
+        <button data-k="=" class="k-eq">=</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-editor">
+    <div class="editor">
+      <div class="toolbar">
+        <button data-act="new">Neu</button>
+        <button data-act="open">Öffnen</button>
+        <button data-act="save">Speichern</button>
+        <input class="filename" data-ref="name" value="notiz.txt" aria-label="Dateiname" spellcheck="false">
+        <input type="file" data-ref="file" accept=".txt,.md,.json,.csv,.html,.css,.js,text/*" hidden>
+      </div>
+      <textarea data-ref="text" spellcheck="false" placeholder="> Schreibe etwas …"></textarea>
+      <div class="statusbar">
+        <span data-ref="stats">0 Zeichen · 1 Zeile</span>
+        <span data-ref="saved">AUTOSAVE: AN</span>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-weather">
+    <div class="weather">
+      <div class="w-loc">
+        <div>
+          <div class="w-label">STANDORT</div>
+          <div class="w-place" data-ref="place">—</div>
+          <div class="w-coords" data-ref="coords"></div>
+        </div>
+        <div class="w-loc-actions">
+          <button data-act="refresh" title="Aktualisieren">↻</button>
+          <button data-act="settings" title="Standort einstellen">⚙</button>
+        </div>
+      </div>
+
+      <form class="w-settings" data-ref="settings" hidden>
+        <div class="w-label">STANDORT EINSTELLEN</div>
+        <div class="w-search">
+          <input data-ref="query" placeholder="Stadt suchen, z. B. Berlin" aria-label="Stadt suchen" autocomplete="off">
+          <button type="submit">Suchen</button>
+        </div>
+        <button type="button" data-act="geo" class="w-geo">◎ Aktuellen Standort verwenden</button>
+        <ul class="w-results" data-ref="results"></ul>
+      </form>
+
+      <div class="w-status" data-ref="status">Lade Daten …</div>
+
+      <div class="w-grid" data-ref="grid" hidden>
+        <div class="w-card w-temp">
+          <div class="w-label">TEMPERATUR</div>
+          <div class="w-big"><span data-ref="temp">--</span><small>°C</small></div>
+          <div class="w-sub" data-ref="cond">—</div>
+          <div class="w-sub">Gefühlt <span data-ref="feels">--</span>°C</div>
+        </div>
+        <div class="w-card">
+          <div class="w-label">AQI <small>(US)</small></div>
+          <div class="w-big" data-ref="aqi">--</div>
+          <div class="w-sub" data-ref="aqiText">—</div>
+          <div class="w-meter"><span data-ref="aqiBar"></span></div>
+        </div>
+        <div class="w-card">
+          <div class="w-label">UV-INDEX</div>
+          <div class="w-big" data-ref="uv">--</div>
+          <div class="w-sub" data-ref="uvText">—</div>
+          <div class="w-meter"><span data-ref="uvBar"></span></div>
+        </div>
+        <div class="w-card w-extra">
+          <div><span class="w-label">LUFTFEUCHTE</span><b data-ref="hum">--</b>%</div>
+          <div><span class="w-label">WIND</span><b data-ref="wind">--</b> km/h</div>
+          <div><span class="w-label">PM2.5</span><b data-ref="pm25">--</b> µg/m³</div>
+          <div><span class="w-label">UV MAX HEUTE</span><b data-ref="uvMax">--</b></div>
+        </div>
+      </div>
+      <div class="w-foot" data-ref="updated"></div>
+    </div>
+  </template>
+
+  <script src="js/apps/calculator.js"></script>
+  <script src="js/apps/editor.js"></script>
+  <script src="js/apps/weather.js"></script>
+  <script src="js/os.js"></script>
+</body>
+</html>
