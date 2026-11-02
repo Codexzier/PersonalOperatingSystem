@@ -18,8 +18,10 @@ Ortsname bei GPS-Ortung: BigDataCloud Reverse Geocoding (Client-API).
 ## Auf GitHub Pages veröffentlichen
 
 1. Repository → **Settings** → **Pages**
-2. Unter *Build and deployment*: Source **Deploy from a branch**, Branch `main`, Ordner `/ (root)` → **Save**
-3. Nach kurzer Zeit ist die Seite unter `https://<benutzername>.github.io/<repository>/` erreichbar.
+2. Unter *Build and deployment* bei **Source** den Eintrag **GitHub Actions** wählen.
+3. Der Workflow `.github/workflows/pages.yml` läuft bei jedem Push auf `main`
+   (oder manuell unter **Actions → Deploy to GitHub Pages → Run workflow**).
+4. Danach ist die Seite unter `https://<benutzername>.github.io/<repository>/` erreichbar.
 
 Hinweis: Die GPS-Ortung funktioniert nur über HTTPS (bei GitHub Pages gegeben) bzw. `localhost`.
 
