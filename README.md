@@ -10,6 +10,11 @@ Eine Webseite im Look eines Cyberpunk-Betriebssystems – statisch, ohne Build-S
   - **Texteditor** – Autosave im Browser (localStorage), Datei öffnen, als Datei speichern (`Strg+S`).
   - **Wetter** – Temperatur, gefühlte Temperatur, **AQI (US)**, **UV-Index**, Luftfeuchte, Wind, PM2.5.
     Standort per GPS (Browser-Freigabe) oder per Städtesuche einstellbar; die Auswahl wird gespeichert.
+  - **Games** (Untermenü, per Maus-Hover, Klick oder Pfeil rechts):
+    - **Sudoku** – 9×9-Raster mit eindeutiger Lösung, drei Schwierigkeitsstufen, Notizen-Modus (`N`),
+      Konflikt-Markierung; der Timer über dem Feld startet mit der ersten Eingabe.
+    - **Mahjong** – Solitär mit 92 Steinen auf vier Ebenen, immer lösbar verteilt; Schritte zurücksetzen
+      (`Rückgängig`, `U` oder `Strg+Z`), Hinweis (`H`); der Timer startet mit dem ersten abgeräumten Paar.
 - Fenster lassen sich verschieben, in der Größe ändern, maximieren (Doppelklick auf Titel), minimieren und schließen.
 
 Wetterdaten: [Open-Meteo](https://open-meteo.com) (Wetter, Luftqualität, Geocoding – kein API-Key nötig).
@@ -39,5 +44,5 @@ Dann `http://localhost:8000` öffnen.
 index.html          Oberfläche + App-Templates
 css/style.css       Theme
 js/os.js            Fenster-Manager, Start-Menü, System Bar
-js/apps/*.js        Taschenrechner, Texteditor, Wetter
+js/apps/*.js        Taschenrechner, Texteditor, Wetter, Sudoku, Mahjong
 ```

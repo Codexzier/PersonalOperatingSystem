@@ -186,25 +186,57 @@
   }
 
   /* ---------- Start-Menü ---------- */
-  const menuItems = () => [...startMenu.querySelectorAll("button[data-app]")];
+  const gamesBtn = $("#gamesBtn");
+  const gamesMenu = $("#gamesMenu");
+  const subOpen = () => !gamesMenu.hidden;
+  // Menüpunkte der aktuell aktiven Ebene (Hauptmenü oder Untermenü)
+  const levelItems = (inSub) => inSub
+    ? [...gamesMenu.querySelectorAll('button[role="menuitem"]')]
+    : [...startMenu.querySelectorAll(':scope > ul > li > button[role="menuitem"]')];
+
+  function setSub(open, focusFirst = false) {
+    gamesMenu.hidden = !open;
+    gamesBtn.setAttribute("aria-expanded", String(open));
+    gamesBtn.classList.toggle("open", open);
+    if (open && focusFirst) levelItems(true)[0].focus();
+  }
   function setMenu(open) {
     startMenu.hidden = !open;
     startBtn.setAttribute("aria-expanded", String(open));
+    setSub(false);
     if (open) {
       startMenu.style.zIndex = ++zTop + 1000;
-      menuItems()[0].focus();
+      levelItems(false)[0].focus();
     }
   }
   startBtn.addEventListener("click", () => setMenu(startMenu.hidden));
   startMenu.addEventListener("click", (e) => {
+    if (e.target.closest("#gamesBtn")) { setSub(!subOpen(), true); return; }
     const b = e.target.closest("button[data-app]");
     if (b) { setMenu(false); openApp(b.dataset.app); }
   });
+  // Untermenü per Maus öffnen/schließen (nur bei Geräten mit Hover)
+  const hasHover = () => window.matchMedia("(hover: hover)").matches;
+  const subLi = gamesBtn.parentElement;
+  subLi.addEventListener("mouseenter", () => { if (hasHover()) setSub(true); });
+  subLi.addEventListener("mouseleave", () => {
+    if (!hasHover()) return;
+    setSub(false);
+    if (gamesMenu.contains(document.activeElement)) gamesBtn.focus();
+  });
+  // Andere Hauptmenüpunkte schließen das Untermenü beim Überfahren
+  levelItems(false).forEach((b) => b.addEventListener("mouseenter", () => { if (b !== gamesBtn && hasHover()) setSub(false); }));
+
   startMenu.addEventListener("keydown", (e) => {
-    const items = menuItems();
+    const inSub = gamesMenu.contains(document.activeElement);
+    const items = levelItems(inSub);
     const i = items.indexOf(document.activeElement);
     if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
-    if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    else if (e.key === "ArrowRight" && document.activeElement === gamesBtn) { e.preventDefault(); setSub(true, true); }
+    else if ((e.key === "ArrowLeft" || e.key === "Escape") && inSub) {
+      e.preventDefault(); e.stopPropagation(); setSub(false); gamesBtn.focus();
+    }
   });
   document.addEventListener("pointerdown", (e) => {
     if (!startMenu.hidden && !startMenu.contains(e.target) && !startBtn.contains(e.target)) setMenu(false);
@@ -221,7 +253,7 @@
     if (e.altKey && e.key.toLowerCase() === "s") { e.preventDefault(); setMenu(startMenu.hidden); return; }
     // Tasten an das fokussierte Fenster weitergeben, wenn kein Eingabefeld aktiv ist
     const t = e.target;
-    if (t.matches?.("input, textarea") || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (t.matches?.("input, textarea, select") || e.ctrlKey || e.metaKey || e.altKey) return;
     const rec = focusedId && windows.get(focusedId);
     if (rec && !rec.minimized && rec.api.onKey && rec.api.onKey(e)) e.preventDefault();
   });

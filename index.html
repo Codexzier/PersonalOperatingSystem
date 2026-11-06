@@ -67,6 +67,14 @@
             <li role="none"><button role="menuitem" data-app="calculator"><span class="mi-icon" aria-hidden="true">±</span>Taschenrechner</button></li>
             <li role="none"><button role="menuitem" data-app="editor"><span class="mi-icon" aria-hidden="true">¶</span>Texteditor</button></li>
             <li role="none"><button role="menuitem" data-app="weather"><span class="mi-icon" aria-hidden="true">☼</span>Wetter</button></li>
+            <li role="none" class="has-sub">
+              <button role="menuitem" class="sub-trigger" id="gamesBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="gamesMenu"><span class="mi-icon" aria-hidden="true">◈</span>Games<span class="mi-arrow" aria-hidden="true">▸</span></button>
+              <ul class="submenu" id="gamesMenu" role="menu" aria-label="Games" hidden>
+                <li class="start-menu-head" role="none">// GAMES</li>
+                <li role="none"><button role="menuitem" data-app="sudoku"><span class="mi-icon" aria-hidden="true">#</span>Sudoku</button></li>
+                <li role="none"><button role="menuitem" data-app="mahjong"><span class="mi-icon" aria-hidden="true">▦</span>Mahjong</button></li>
+              </ul>
+            </li>
           </ul>
         </nav>
 
@@ -209,6 +217,8 @@
   <script src="js/apps/calculator.js"></script>
   <script src="js/apps/editor.js"></script>
   <script src="js/apps/weather.js"></script>
+  <script src="js/apps/sudoku.js"></script>
+  <script src="js/apps/mahjong.js"></script>
   <script src="js/os.js"></script>
 </body>
 </html>
